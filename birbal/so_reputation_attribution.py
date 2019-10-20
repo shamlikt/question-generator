@@ -17,11 +17,18 @@ at perticular time'''
 
 class StackUsers:
     def __init__(self, dbPath, SITE, logger):
+
+        '''
+        dbPath : Cache path
+        SITE: stack api object
+        logger: logging module instance
+        '''
         self.sqlhandler = SqliteHandler(dbPath, logger)
         self.SITE = SITE
         self.logger = logger
 
     def get_data_from_servers(self, users):
+        ''' Fetch data using stack_api'''
         result = []
         try:
             users = self.SITE.fetch('users', ids=users)
@@ -76,7 +83,7 @@ class StackUsers:
         else:
             reputation = user_data["reputation"] - abs(user_data["reputation_change_year"])
         return reputation
-        
+
     def get_valid_reputation(self, users, users_data):
         time  = users['time']
         result = {'time': time,
